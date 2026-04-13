@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
+import { useAuth } from '../hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import { getReportSummary, getStudents, getPayments, getProfile } from '../api'
 import { Card, StatCard, Avatar, Badge, Spinner, fmt, avatarColor, MONTHS } from '../components/ui'
 
 export default function Dashboard() {
+  const { user } = useAuth()
   const [summary, setSummary] = useState(null)
   const [students, setStudents] = useState([])
   const [payments, setPayments] = useState([])
@@ -37,7 +39,7 @@ export default function Dashboard() {
       {/* Greeting */}
       <div style={{ marginBottom: 28 }}>
         <h1 style={{ fontFamily: 'var(--font-head)', fontSize: '1.7rem', fontWeight: 800, color: 'var(--text)' }}>
-          Good {now.getHours() < 12 ? 'Morning' : now.getHours() < 17 ? 'Afternoon' : 'Evening'} 👋
+        Hey {user?.name} 👋
         </h1>
         <p style={{ color: 'var(--text3)', fontSize: '0.88rem', marginTop: 5 }}>
           {MONTHS[now.getMonth()]} {now.getFullYear()} overview — {profile?.tutorName || 'Tuition Porai'}
